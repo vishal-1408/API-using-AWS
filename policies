@@ -1,0 +1,50 @@
+policy for bucket
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AddCannedAcl",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": [
+                    "<here put arn of user just created>"
+                ]
+            },
+            "Action": [
+                "s3:PutObject",
+                "s3:PutObjectAcl"
+            ],
+            "Resource": [
+                "<here put arn of bucket>/*"
+            ],
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": [
+                        "public-read"
+                    ]
+                }
+            }
+        }
+    ]
+}
+
+
+cors configuration:
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<CORSRule>
+    <AllowedOrigin>*</AllowedOrigin>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedMethod>POST</AllowedMethod>
+    <AllowedMethod>PUT</AllowedMethod>
+    <MaxAgeSeconds>3000</MaxAgeSeconds>
+    <AllowedHeader>Authorization</AllowedHeader>
+</CORSRule>
+</CORSConfiguration>
+
+
+
+policy for the user: Select the inbuilt policy - amazons3fullaccess (for having permissions to even delete an object of a bucket)
